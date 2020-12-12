@@ -23,7 +23,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "watchlist",
+        name: "watchlists",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },

@@ -1,0 +1,30 @@
+.watchlist-container {
+  
+}
+
+.new-watchlist {
+  display: flex;
+  flex-direction: row;
+}
+
+.watchlist-selector {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px darkgray solid;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.watchlist-selector-item {
+  padding: 5px 10px;
+  border: 1px black solid;
+}
+
+.new-watchlist-item {
+  
+}
+
+.watchlist-item {
+  
+}
+
