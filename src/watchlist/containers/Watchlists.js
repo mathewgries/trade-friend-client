@@ -5,6 +5,7 @@ import { onError } from "../../libs/errorLib";
 import { useHistory } from "react-router-dom";
 import NewWatchlist from './NewWatchlist'
 import WatchlistSelector from './WatchlistSelector'
+import NewWatchlistItem from './NewWatchlistItem'
 import Watchlist from './Watchlist'
 import '../style.css'
 
@@ -53,7 +54,10 @@ export default function Watchlists(props) {
                     <WatchlistSelector />
                 </div>
                 <div>
-                    <Watchlist/>
+                    <Watchlist />
+                </div>
+                <div>
+                    <NewWatchlistItem />
                 </div>
             </div>
         )
@@ -63,8 +67,10 @@ export default function Watchlists(props) {
         <div className="watchlist-container">
             <WatchlistContext.Provider
                 value={{
-                    watchlists,
                     isLoading,
+                    setIsLoading,
+                    watchlists,
+                    setWatchlists,
                     activeWatchlist,
                     setActiveWatchlist
                 }}

@@ -1,8 +1,8 @@
 .watchlist-container {
-  
-}
+  }
 
-.new-watchlist {
+.new-watchlist,
+.new-watchlist-item {
   display: flex;
   flex-direction: row;
 }
@@ -21,10 +21,7 @@
 }
 
 .new-watchlist-item {
-  
-}
+  }
 
 .watchlist-item {
-  
-}
-
+  }

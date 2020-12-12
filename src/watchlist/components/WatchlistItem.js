@@ -4,7 +4,7 @@ const WatchlistItem = (props) => {
 
     return (
         <div className={'watchlist-item'}>
-            {'Watchlist Item'}
+            {props.ticker}
         </div>
     )
 }

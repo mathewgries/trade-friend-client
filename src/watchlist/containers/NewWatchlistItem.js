@@ -6,7 +6,11 @@ import LoaderButton from "../../components/LoaderButton";
 import { onError } from "../../libs/errorLib";
 
 export default function NewWatchlistItem(props) {
-    const { activeWatchlist } = useWatchlistContext()
+    const {
+        watchlists,
+        activeWatchlist,
+        setActiveWatchlist
+    } = useWatchlistContext()
     const [ticker, setTicker] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -18,44 +22,62 @@ export default function NewWatchlistItem(props) {
         event.preventDefault();
         setIsLoading(true);
 
+        const data = {
+            watchlistName: activeWatchlist.watchlistName,
+            tickers: [...activeWatchlist.tickers, ticker]
+        }
+
         try {
-            await createWatchlistItem(ticker);
+            await createWatchlistItem(data);
+            setActiveWatchlist({ ...activeWatchlist, ...data })
+            setTicker('')
         } catch (e) {
             onError(e);
+        }finally{
             setIsLoading(false);
         }
     }
 
-    function createWatchlistItem(ticker) {
+    function createWatchlistItem(data) {
         return API.put("watchlists", `/watchlists/${activeWatchlist.watchlistId}`, {
-            body: {
-                tickers: [...activeWatchlist.tickers, ticker]
-            }
+            body: data
         });
     }
 
-    return (
-        <Form onSubmit={handleSubmit} className="new-watchlist-item">
-            <Form.Group controlId='ticker' size='sm'>
-                <Form.Control
-                    autoFocus
-                    type="text"
-                    value={ticker}
-                    onChange={(e) => setTicker(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group size='sm'>
-                <LoaderButton
-                    block
-                    type="submit"
-                    variant="primary"
-                    isLoading={isLoading}
-                    disabled={!validateForm()}
-                >
-                    Add
+    function renderView() {
+        return (
+            <Form onSubmit={handleSubmit} className="new-watchlist-item">
+                <Form.Group controlId='ticker' size='sm'>
+                    <Form.Control
+                        autoFocus
+                        type="text"
+                        value={ticker}
+                        onChange={(e) => setTicker(e.target.value)}
+                    />
+                </Form.Group>
+                <Form.Group size='sm'>
+                    <LoaderButton
+                        block
+                        type="submit"
+                        variant="primary"
+                        isLoading={isLoading}
+                        disabled={!validateForm()}
+                    >
+                        Add
                 </LoaderButton>
-            </Form.Group>
-        </Form>
+                </Form.Group>
+            </Form>
+        )
+    }
+
+    return (
+        <div>
+            {
+                watchlists.length > 0
+                    ? renderView()
+                    : null
+            }
+        </div>
     )
 
 }

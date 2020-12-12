@@ -1,0 +1,35 @@
+.LoaderButton .spinning {
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.loader-container, .no-data {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.loader .spinning {
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 1.5s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}

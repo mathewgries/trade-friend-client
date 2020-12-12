@@ -2,11 +2,12 @@ import React from "react";
 import { useWatchlistContext } from "../../libs/contextLib";
 import WatchlistSelectorItem from '../components/WatchlistSelectorItem'
 import Loader from '../../components/Loader'
+import NoData from '../../components/NoData'
 
 export default function Watchlists(props) {
     const {
-        watchlists,
         isLoading,
+        watchlists,
         setActiveWatchlist
     } = useWatchlistContext()
 
@@ -33,7 +34,7 @@ export default function Watchlists(props) {
 
     return (
         <div>
-            {!isLoading && getSelectorList()}
+            {watchlists.length > 0 ? getSelectorList() : <NoData text={'Add Watchlist'}/>}
         </div>
     )
 }
