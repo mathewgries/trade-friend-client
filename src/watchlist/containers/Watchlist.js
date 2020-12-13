@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useWatchlistContext } from '../../libs/contextLib'
 import WatchlistItem from '../components/WatchlistItem'
 import Loader from '../../components/Loader'
@@ -6,14 +6,22 @@ import NoData from '../../components/NoData'
 
 export default function Watchlist(props) {
     const {
-        isLoading,
         watchlists,
-        activeWatchlist
+        activeWatchlist,
+        setActiveWatchlist
     } = useWatchlistContext()
+    const [isLoading, setIsLoading] = useState(props.isLoading)
+    const [watchlist, setWatchlist] = useState({})
 
+    useEffect(() => {
+        if(!props.loading){
+            setWatchlist(activeWatchlist)
+        }
+        setIsLoading(props.loading)
+    },[props.loading, activeWatchlist])
 
     function renderWatchlist() {
-        const { tickers } = activeWatchlist
+        const { tickers } = watchlist
         return (
             <div>
                 <div>
@@ -34,7 +42,7 @@ export default function Watchlist(props) {
     }
 
     function renderView(){
-        if(activeWatchlist.tickers.length > 0){
+        if(watchlist.tickers.length > 0){
             return renderWatchlist()
         }else{
             return renderNoDataMessage()

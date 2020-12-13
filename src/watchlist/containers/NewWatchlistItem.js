@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { useWatchlistContext } from '../../libs/contextLib'
 import Form from "react-bootstrap/Form";
@@ -8,11 +8,16 @@ import { onError } from "../../libs/errorLib";
 export default function NewWatchlistItem(props) {
     const {
         watchlists,
+        setWatchlists,
         activeWatchlist,
         setActiveWatchlist
     } = useWatchlistContext()
     const [ticker, setTicker] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(props.loading);
+
+    useEffect(() => {
+        setIsLoading(props.loading)
+    }, [props.loading])
 
     function validateForm() {
         return ticker.length > 0;
@@ -29,11 +34,13 @@ export default function NewWatchlistItem(props) {
 
         try {
             await createWatchlistItem(data);
-            setActiveWatchlist({ ...activeWatchlist, ...data })
+            const updatedWatchlist = { ...activeWatchlist, tickers: data.tickers }
+            setActiveWatchlist(updatedWatchlist)
+            setWatchlists(watchlists.map((wl) => wl.watchlistId === activeWatchlist.watchlistId ? updatedWatchlist : wl))
             setTicker('')
         } catch (e) {
             onError(e);
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     }

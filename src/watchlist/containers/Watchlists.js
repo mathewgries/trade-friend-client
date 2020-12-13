@@ -48,16 +48,16 @@ export default function Watchlists(props) {
         return (
             <div>
                 <div>
-                    <NewWatchlist />
+                    <NewWatchlist loading={isLoading} />
                 </div>
                 <div>
-                    <WatchlistSelector />
+                    <WatchlistSelector loading={isLoading} />
                 </div>
                 <div>
-                    <Watchlist />
+                    <Watchlist loading={isLoading} />
                 </div>
                 <div>
-                    <NewWatchlistItem />
+                    <NewWatchlistItem loading={isLoading} />
                 </div>
             </div>
         )
@@ -67,8 +67,6 @@ export default function Watchlists(props) {
         <div className="watchlist-container">
             <WatchlistContext.Provider
                 value={{
-                    isLoading,
-                    setIsLoading,
                     watchlists,
                     setWatchlists,
                     activeWatchlist,
