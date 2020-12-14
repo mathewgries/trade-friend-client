@@ -8,58 +8,57 @@ export default function Watchlist(props) {
     const {
         watchlists,
         activeWatchlist,
-        setActiveWatchlist
     } = useWatchlistContext()
     const [isLoading, setIsLoading] = useState(props.isLoading)
     const [watchlist, setWatchlist] = useState({})
 
     useEffect(() => {
-        if(!props.loading){
+        if (!props.loading) {
             setWatchlist(activeWatchlist)
         }
         setIsLoading(props.loading)
-    },[props.loading, activeWatchlist])
+    }, [props.loading, activeWatchlist])
 
     function renderWatchlist() {
         const { tickers } = watchlist
         return (
-            <div>
-                <div>
-                    {!isLoading && tickers.map((val) => {
-                        return (
-                            <div key={val}>
-                                <WatchlistItem ticker={val} />
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
+            !isLoading && tickers.map((ticker) => {
+                return <WatchlistItem key={ticker} ticker={ticker} />
+            })
         )
     }
 
-    function renderNoDataMessage(){
-        return <NoData text={'Add Ticker'}/>
+    function renderNoDataMessage(text) {
+        return (
+            <tr>
+                <td className='loading-div' colSpan="6">
+                    <NoData text={text} />
+                </td>
+            </tr>
+        )
     }
 
-    function renderView(){
-        if(watchlist.tickers.length > 0){
+    function renderView() {
+        if (watchlist.tickers.length > 0) {
             return renderWatchlist()
-        }else{
-            return renderNoDataMessage()
+        } else {
+            return renderNoDataMessage('Add Ticker')
         }
     }
 
-    if(isLoading){
-        return <Loader/>
+    if (isLoading) {
+        return (
+            <tr>
+                <td className='loading-div' colSpan="6">
+                    <Loader />
+                </td>
+            </tr>
+        )
     }
 
     return (
-        <div>
-            {
-                watchlists.length > 0
-                    ? renderView()
-                    : <NoData text={'Add Watchlist'} />
-            }
-        </div>
+        watchlists.length > 0
+            ? renderView()
+            : renderNoDataMessage('Add Watchlist')
     )
 }

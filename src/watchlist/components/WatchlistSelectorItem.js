@@ -4,7 +4,7 @@ const WatchlistSelectorItem = (props) => {
     const { watchlist } = props
 
     return (
-        <div className={'watchlist-selector-item'}>
+        <div className={'list-item'}>
             {watchlist.watchlistName}
         </div>
     )

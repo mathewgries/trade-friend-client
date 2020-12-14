@@ -1,27 +1,15 @@
-.watchlist-container {
-  }
-
-.new-watchlist,
-.new-watchlist-item {
-  display: flex;
-  flex-direction: row;
-}
-
-.watchlist-selector {
-  display: flex;
-  flex-direction: column;
-  border: 1.5px darkgray solid;
-  border-radius: 5px;
+.watchlist-selector-container {
   padding: 10px;
 }
 
-.watchlist-selector-item {
-  padding: 5px 10px;
-  border: 1px black solid;
+.watchlist-table {
+  width: 100%;
 }
 
 .new-watchlist-item {
-  }
+  margin-top: 15px;
+}
 
-.watchlist-item {
-  }
+.loading-div {
+  padding: 15px;
+}

@@ -1,20 +1,18 @@
 body {
   margin: 0;
   padding: 0;
-  color: #333;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: "Open Sans", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "PT Serif", serif;
+caption {
+  caption-side: top;
+}
+
+.table-name-column {
+  font-weight: bold;
 }
 
 input.form-control,
@@ -23,6 +21,80 @@ textarea.form-control {
   font-size: 1rem;
 }
 
-input[type=file] {
-  width: 100%;
+.view-container {
+  margin: 0;
+}
+
+.inner-view-container {
+  padding: 10px;
+}
+
+/* BACKGROUND COLORS */
+
+.list-item,
+.table-name-column,
+body {
+  background-color: #3D5A80;
+}
+
+.view-container {
+  background-color: #293241;
+}
+
+.list-item:active,
+input[type=text]:focus {
+  background-color: #E0FBFC;
+}
+
+.LoaderButton,
+input[type=text] {
+  background-color: #98C1D9;
+}
+
+/* TEXT COLORS */
+
+.body {
+  color: #98C1D9;
+}
+
+.list-item:active {
+  color: #293241;
+}
+
+caption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+  color: #EE6C4D;
+  font-family: "PT Serif", serif;
+}
+
+td, .list-item {
+  color: #E0FBFC;
+}
+
+/* BORDERS */
+
+td,
+td,
+th {
+  text-align: center;
+  border: 1px solid #E0FBFC;
+}
+
+.list-item {
+  padding: 5px;
+  text-align: center;
+  border-top: 1px solid #E0FBFC;
+  border-left: 1px solid #E0FBFC;
+  border-right: 1px solid #E0FBFC;
+  cursor: default;
+}
+
+.list-item:last-child {
+  border-bottom: 1px solid #E0FBFC;
 }

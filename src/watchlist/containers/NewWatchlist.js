@@ -16,7 +16,7 @@ export default function NewWatchlist(props) {
 
     useEffect(() => {
         setIsLoading(props.loading)
-    },[props.loading])
+    }, [props.loading])
 
     function validateForm() {
         return watchlistName.length > 0;
@@ -49,6 +49,7 @@ export default function NewWatchlist(props) {
             <Form.Group controlId='watchlistName' size='sm'>
                 <Form.Control
                     autoFocus
+                    placeholder={'Add Watchlist...'}
                     type="text"
                     value={watchlistName}
                     onChange={(e) => setWatchlistName(e.target.value)}
@@ -56,13 +57,14 @@ export default function NewWatchlist(props) {
             </Form.Group>
             <Form.Group size='sm'>
                 <LoaderButton
+                    hidden={true}
                     block
                     type="submit"
                     variant="primary"
                     isLoading={isLoading}
                     disabled={!validateForm()}
                 >
-                    Add
+                    {!isLoading ? 'Add' : ''}
                 </LoaderButton>
             </Form.Group>
         </Form>

@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import NewWatchlist from './NewWatchlist'
 import WatchlistSelector from './WatchlistSelector'
 import NewWatchlistItem from './NewWatchlistItem'
+import WatchlistHeader from '../components/WatchlistHeader'
 import Watchlist from './Watchlist'
 import '../style.css'
 
@@ -46,25 +47,37 @@ export default function Watchlists(props) {
 
     function renderWatchlists() {
         return (
-            <div>
-                <div>
-                    <NewWatchlist loading={isLoading} />
+            <div className='view-container row'>
+                <div className='inner-view-container col-3'>
+                    <div>
+                        <NewWatchlist loading={isLoading} />
+                    </div>
+                    <div>
+                        <WatchlistSelector loading={isLoading} />
+                    </div>
                 </div>
-                <div>
-                    <WatchlistSelector loading={isLoading} />
-                </div>
-                <div>
-                    <Watchlist loading={isLoading} />
-                </div>
-                <div>
-                    <NewWatchlistItem loading={isLoading} />
+                <div className='inner-view-container col-9'>
+                    <table className='watchlist-table'>
+                        <caption>
+                            {watchlists.length > 0 ? activeWatchlist.watchlistName : null}
+                        </caption>
+                        <thead>
+                            <WatchlistHeader />
+                        </thead>
+                        <tbody>
+                            <Watchlist loading={isLoading} />
+                        </tbody>
+                    </table>
+                    <div>
+                        <NewWatchlistItem loading={isLoading} />
+                    </div>
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="watchlist-container">
+        <div>
             <WatchlistContext.Provider
                 value={{
                     watchlists,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API } from "aws-amplify";
+import { getDetails } from '../../api/get'
 import { useWatchlistContext } from '../../libs/contextLib'
 import Form from "react-bootstrap/Form";
 import LoaderButton from "../../components/LoaderButton";
@@ -12,7 +13,7 @@ export default function NewWatchlistItem(props) {
         activeWatchlist,
         setActiveWatchlist
     } = useWatchlistContext()
-    const [ticker, setTicker] = useState('');
+    const [ticker, setTicker] = useState('')
     const [isLoading, setIsLoading] = useState(props.loading);
 
     useEffect(() => {
@@ -27,6 +28,33 @@ export default function NewWatchlistItem(props) {
         event.preventDefault();
         setIsLoading(true);
 
+        const results = await loadTickerData()
+        if (results.status === 'OK') {
+            await loadWatchlistItem()
+        } else {
+            onError(results.message)
+            setTicker('')
+            setIsLoading(false)
+            return
+        }
+    }
+
+    async function loadTickerData() {
+        return await Promise.all([
+            await getDetails(ticker)
+        ])
+            .then((values) => {
+                if (values[0].error) {
+                    throw new Error()
+                }
+                return { status: 'OK' }
+            })
+            .catch((error) => {
+                return { status: 'ERROR', message: 'Could not find symbol' }
+            })
+    }
+
+    async function loadWatchlistItem() {
         const data = {
             watchlistName: activeWatchlist.watchlistName,
             tickers: [...activeWatchlist.tickers, ticker]
@@ -58,33 +86,31 @@ export default function NewWatchlistItem(props) {
                     <Form.Control
                         autoFocus
                         type="text"
+                        placeholder={'Add ticker to watchlist...'}
                         value={ticker}
                         onChange={(e) => setTicker(e.target.value)}
                     />
                 </Form.Group>
                 <Form.Group size='sm'>
                     <LoaderButton
+                        hidden={true}
                         block
                         type="submit"
                         variant="primary"
                         isLoading={isLoading}
                         disabled={!validateForm()}
                     >
-                        Add
-                </LoaderButton>
+                        {!isLoading ? 'Add' : ''}
+                    </LoaderButton>
                 </Form.Group>
             </Form>
         )
     }
 
     return (
-        <div>
-            {
-                watchlists.length > 0
-                    ? renderView()
-                    : null
-            }
-        </div>
+        watchlists.length > 0
+            ? renderView()
+            : null
     )
 
 }

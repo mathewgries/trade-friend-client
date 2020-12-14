@@ -9,7 +9,7 @@ export default function Loader() {
                 {
                     <BsArrowRepeat
                         className="spinning"
-                        size='3em'
+                        size='1.5em'
                         color='gray'
                     />
                 }

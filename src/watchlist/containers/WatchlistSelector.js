@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useWatchlistContext } from "../../libs/contextLib";
 import WatchlistSelectorItem from '../components/WatchlistSelectorItem'
 import Loader from '../../components/Loader'
@@ -13,7 +13,7 @@ export default function Watchlists(props) {
 
     useEffect(() => {
         setIsLoading(props.loading)
-    },[props.loading])
+    }, [props.loading])
 
     if (isLoading) {
         return <Loader />
@@ -21,7 +21,7 @@ export default function Watchlists(props) {
 
     function getSelectorList() {
         return (
-            <div>
+            <div className='watchlist-selector-list'>
                 {!isLoading && watchlists.map((val) => {
                     return (
                         <div
@@ -38,7 +38,11 @@ export default function Watchlists(props) {
 
     return (
         <div>
-            {watchlists.length > 0 ? getSelectorList() : <NoData text={'Add Watchlist'}/>}
+            {
+                watchlists.length > 0
+                    ? getSelectorList()
+                    : <NoData text={'Add Watchlist'} />
+            }
         </div>
     )
 }
