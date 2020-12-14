@@ -61,7 +61,6 @@ input[type=text] {
   color: #293241;
 }
 
-caption,
 h1,
 h2,
 h3,
@@ -73,7 +72,9 @@ th {
   font-family: "PT Serif", serif;
 }
 
-td, .list-item {
+.list-item,
+caption,
+td {
   color: #E0FBFC;
 }
 
